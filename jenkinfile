@@ -60,7 +60,7 @@ pipeline {
                     sh "docker build -t sibisam2301/httpd:${params.TAG_NUMBER} ."
 
                     // Use Docker Hub credentials securely for pushing the image
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
                         // Log in to Docker Hub before pushing the image
                         sh "docker login -u sibisam@gmail.com -p devika@123"
 
