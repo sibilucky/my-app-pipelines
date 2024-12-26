@@ -1,44 +1,65 @@
-def gv
-
 pipeline {
     agent any
+
     parameters {
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
-        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
+        string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Version tag number')
     }
+
+    environment {
+        // Set up environment variables if needed
+        GIT_URL = 'https://github.com/yourrepo/microservice.git'
+    }
+
     stages {
-        stage("init") {
+        stage('Checkout') {
             steps {
                 script {
-                   gv = load "script.groovy" 
+                    // Checkout the repository and checkout the branch parameter
+                    git branch: "${params.GIT_BRANCH}", url: "${env.GIT_URL}"
                 }
             }
         }
-        stage("build") {
+
+        stage('Build') {
             steps {
                 script {
-                    gv.buildApp()
+                    // Building the microservice with Maven or Gradle
+                    // You can choose either Maven or Gradle depending on your project configuration
+                    if (fileExists('pom.xml')) {
+                        // If a Maven project, run Maven build
+                        sh 'mvn clean install'  // For Maven-based project
+                    } else if (fileExists('build.gradle')) {
+                        // If a Gradle project, run Gradle build
+                        sh './gradlew build'  // For Gradle-based project
+                    } else {
+                        error 'No build tool configuration found (pom.xml or build.gradle)'
+                    }
                 }
             }
         }
-        stage("test") {
-            when {
-                expression {
-                    params.executeTests
-                }
-            }
+
+        stage('Tag Build') {
             steps {
                 script {
-                    gv.testApp()
+                    // Create a tag using the provided tag number
+                    sh "git tag ${params.TAG_NUMBER}"
+                    sh "git push origin ${params.TAG_NUMBER}"
                 }
             }
         }
-        stage("deploy") {
+
+        stage('Deploy') {
             steps {
                 script {
-                    gv.deployApp()
+                    // Deploy to the environment (e.g., Kubernetes, Docker, etc.)
+                    echo 'Deploying the microservice...'
+                    // Add commands here to deploy your microservice, e.g., using Docker, Kubernetes, or other tools.
+                    // For example, if deploying to a Docker container:
+                    // sh 'docker build -t yourimage:${params.TAG_NUMBER} .'
+                    // sh 'docker push yourimage:${params.TAG_NUMBER}'
                 }
             }
         }
-    }   
+    }
 }
