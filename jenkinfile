@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         // Set up environment variables if needed
-        GIT_URL = 'https://github.com/yourrepo/microservice.git'
+        GIT_URL = 'https://github.com/sibilucky/my-app-pipelines.git'
     }
 
     stages {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the repository and checkout the branch parameter
-                    git branch: "${params.GIT_BRANCH}", url: "${env.GIT_URL}"
+                    git branch: "${params.GIT_BRANCH}", url: "https://github.com/sibilucky/my-app-pipelines.git"
                 }
             }
         }
