@@ -46,7 +46,7 @@ pipeline {
                     // Create a tag using the provided tag number
                     sh "git tag ${params.TAG_NUMBER}"
                     // Push the tag to the remote repository with authentication
-                    sh "git push https://${GIT_CREDENTIALS_USR}:${GIT_CREDENTIALS_PSW}@github.com/sibilucky/my-app-pipelines.git ${params.TAG_NUMBER}"
+                    sh "git push https://sibilucky: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@github.com/sibilucky/my-app-pipelines.git ${params.TAG_NUMBER}"
                 }
             }
         }
