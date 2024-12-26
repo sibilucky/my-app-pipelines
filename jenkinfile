@@ -7,8 +7,10 @@ pipeline {
     }
 
     environment {
-        // Set up environment variables if needed
+        // GitHub repository URL
         GIT_URL = 'https://github.com/sibilucky/my-app-pipelines.git'
+        // Credentials ID for the GitHub Personal Access Token (PAT)
+        GIT_CREDENTIALS = credentials('github-credentials')  // Replace with your Jenkins credential ID
     }
 
     stages {
@@ -16,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the repository and checkout the branch parameter
-                    git branch: "${params.GIT_BRANCH}", url: "https://github.com/sibilucky/my-app-pipelines.git"
+                    git branch: "${params.GIT_BRANCH}", url: "https://github.com/sibilucky/my-app-pipelines.git", credentialsId: 'github-credentials'
                 }
             }
         }
@@ -25,7 +27,6 @@ pipeline {
             steps {
                 script {
                     // Building the microservice with Maven or Gradle
-                    // You can choose either Maven or Gradle depending on your project configuration
                     if (fileExists('pom.xml')) {
                         // If a Maven project, run Maven build
                         sh 'mvn clean install'  // For Maven-based project
@@ -44,7 +45,8 @@ pipeline {
                 script {
                     // Create a tag using the provided tag number
                     sh "git tag ${params.TAG_NUMBER}"
-                    sh "git push origin ${params.TAG_NUMBER}"
+                    // Push the tag to the remote repository with authentication
+                    sh "git push https://${GIT_CREDENTIALS_USR}:${GIT_CREDENTIALS_PSW}@github.com/sibilucky/my-app-pipelines.git ${params.TAG_NUMBER}"
                 }
             }
         }
