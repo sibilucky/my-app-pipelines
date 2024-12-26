@@ -57,7 +57,7 @@ pipeline {
                     echo "Deploying to Docker..."
 
                     // Build Docker image with the tag name using the tag number from the parameters
-                    sh "docker build -t yourdockerhubusername/my-app:${params.TAG_NUMBER} ."
+                    sh "docker build -t sibisam2301/httpd:${params.TAG_NUMBER} ."
 
                     // Use Docker Hub credentials securely for pushing the image
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
@@ -65,11 +65,11 @@ pipeline {
                         sh "docker login -u sibisam@gmail.com -p devika@123"
 
                         // Push the Docker image to Docker Hub (or other Docker registry)
-                        sh "docker push yourdockerhubusername/my-app:${params.TAG_NUMBER}"
+                        sh "docker push sibisam2301/httpd:${params.TAG_NUMBER}"
 
                         // Optionally, deploy the container to a Docker host
                         // Example using SSH for remote deployment:
-                        // sh "ssh user@your-server 'docker pull yourdockerhubusername/my-app:${params.TAG_NUMBER} && docker run -d --name my-app yourdockerhubusername/my-app:${params.TAG_NUMBER}'"
+                        // sh "ssh user@your-server 'docker pull sibisam2301/httpd:${params.TAG_NUMBER} && docker run -d --name httpd sibisam2301/httpd:${params.TAG_NUMBER}'"
                     }
                 }
             }
