@@ -1,21 +1,36 @@
-<dependencies>
-    <!-- Spring Boot Starter Web -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>2.7.4</version> <!-- Specify the version -->
-    </dependency>
-    <!-- Other dependencies -->
-</dependencies>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-<build>
-    <plugins>
-        <!-- Spring Boot Maven Plugin -->
-        <plugin>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yourcompany</groupId>
+    <artifactId>microservice</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>11</java.version> <!-- Java version -->
+    </properties>
+
+    <dependencies>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.7.4</version> <!-- Specify the version -->
-        </plugin>
-        <!-- Other plugins -->
-    </plugins>
-</build>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.7.4</version> <!-- Version for the Spring Boot dependency -->
+        </dependency>
+        <!-- Other dependencies can be added here -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.4</version> <!-- Version for the Spring Boot plugin -->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
