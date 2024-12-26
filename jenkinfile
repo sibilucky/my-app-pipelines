@@ -54,14 +54,22 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy to the environment (e.g., Kubernetes, Docker, etc.)
-                    echo 'Deploying the microservice...'
-                    // Add commands here to deploy your microservice, e.g., using Docker, Kubernetes, or other tools.
-                    // For example, if deploying to a Docker container:
-                    // sh 'docker build -t yourimage:${params.TAG_NUMBER} .'
-                    // sh 'docker push yourimage:${params.TAG_NUMBER}'
+                    echo "Deploying to Docker..."
+
+                    // Build Docker image with the tag name using the tag number from the parameters
+                    sh "docker build -t yourdockerhubusername/my-app:${params.TAG_NUMBER} ."
+
+                    // Push the Docker image to Docker Hub (or other Docker registry)
+                    sh "docker push yourdockerhubusername/my-app:${params.TAG_NUMBER}"
+
+                    // Optionally, deploy the container to a Docker host
+                    // Example using SSH for remote deployment:
+                    // sh "ssh user@your-server 'docker pull yourdockerhubusername/my-app:${params.TAG_NUMBER} && docker run -d --name my-app yourdockerhubusername/my-app:${params.TAG_NUMBER}'"
+                    
+                    // Alternatively, deploy using Docker Compose (if applicable):
+                    // sh "docker-compose up -d"
                 }
             }
-        }
+        } 
     }
 }
