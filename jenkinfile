@@ -1,0 +1,39 @@
+pipeline {
+    agent any // Run on any available agent
+    environment {
+        // Set environment variables
+        MAVEN_HOME = '/usr/local/maven'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from GitHub
+                git 'https://github.com/sibilucky/my-app-pipelines.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Build the application using Maven
+                script {
+                    sh '${MAVEN_HOME}/bin/mvn clean install'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Deploy the application (example: copy to a server)
+                script {
+                    sh 'scp target/your-app.jar user@server:/path/to/deploy/'
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
