@@ -48,7 +48,8 @@ pipeline {
             // Use Jenkins credentials for GitHub authentication
             withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'selvimuthusamy785@gmail.com', passwordVariable: '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')]) {
                 // Force push the tag to GitHub
-                sh "git push https://selvimuthusamy785@gmail.com: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/sibilucky/my-app-pipelines.git ${params.TAG_NUMBER} --force"
+               git push https://selvimuthusamy785@gmail.com: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/sibilucky/my-app-pipelines.git v1.0.0 --force
+
             }
         }
     }
