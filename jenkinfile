@@ -56,21 +56,10 @@ pipeline {
             steps {
                 script {
                     echo "Deploying to Docker..."
-
-                    // Build Docker image with the tag name using the tag number from the parameters
-                    sh "docker build -t sibisam2301/httpd:${params.TAG_NUMBER} ."
-
-                    // Use Docker Hub credentials securely for pushing the image
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
-                        // Log in to Docker Hub before pushing the image
-                        sh "docker login -u sibisam@gmail.com -p devika@123"
-
-                        // Push the Docker image to Docker Hub (or other Docker registry)
-                        sh "docker push sibisam2301/httpd:${params.TAG_NUMBER}"
-
-                        // Optionally, deploy the container to a Docker host
-                        // Example using SSH for remote deployment:
-                        // sh "ssh user@your-server 'docker pull sibisam2301/httpd:${params.TAG_NUMBER} && docker run -d --name -p 7079 httpd sibisam2301/httpd:${params.TAG_NUMBER}'"
+                    sh "docker build -t yourdockerhubusername/my-app:${params.TAG_NUMBER} ."
+                    sh "docker push yourdockerhubusername/my-app:${params.TAG_NUMBER}"
+                    sh "docker-compose up -d"
+                   
                     }
                 }
             }
