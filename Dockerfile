@@ -12,6 +12,6 @@ RUN mvn clean install -DskipTests
 # Use a smaller OpenJDK image for the final container
 FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/*.jar /app/app.jar
+COPY --from=build /app/target/my-app.jar /app/app.jar
 EXPOSE 7079
 ENTRYPOINT ["java", "-jar", "app.jar"]
