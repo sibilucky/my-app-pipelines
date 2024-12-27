@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim as build
 WORKDIR /app
 
 # Copy the compiled JAR file from the host machine
-COPY target/my-app-1.0.0.jar /app/app.jar
+COPY target/my-app.jar /app/app.jar
 
 # Expose the port the app will run on
 EXPOSE 7079
