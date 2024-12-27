@@ -23,21 +23,17 @@ pipeline {
                 }
             }
         }
-
         stage('Build') {
             steps {
                 script {
-                   
-                    if (fileExists('pom.xml')) {
-                        // If a Maven project, run Maven build
-                        sh 'mvn clean install'  // For Maven-based project
-                    }
-                }
-            }
-        }
+              // Run Maven build
+                 sh 'mvn clean install'
+           }
+       }
+     }
 
-      stage('Deploy') {
-    steps {
+       stage('Deploy') {
+     steps {
         script {
             echo "Deploying to Docker..."
             // Build the Docker image
