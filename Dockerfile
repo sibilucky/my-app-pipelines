@@ -1,17 +1,18 @@
- # Using Maven base image
-FROM maven:3.8.6-openjdk-11 AS build
+# Build stage
+FROM maven:3.8.6-openjdk-11-slim AS build
 
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy the pom.xml and source code into the container
-COPY pom.xml /app/
-
-# Build the project, specifying the goal (clean and install)
-RUN mvn clean install -DskipTests
-
-# Use a smaller OpenJDK image for the final container
+# Final stage
 FROM openjdk:11-jre-slim
+
 WORKDIR /app
-COPY --from=build /app/target/.jar /app/app.jar
+
+# Copy the .jar file from the build stage
+COPY --from=build /app/target/*.jar /app/app.jar
+
 EXPOSE 7079
 ENTRYPOINT ["java", "-jar", "app.jar"]
+ 
