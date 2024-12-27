@@ -44,7 +44,7 @@ pipeline {
             sh "docker build -t sibisam2301/maven:${params.TAG_NUMBER} ."
             
             // Push the image to Docker Hub
-            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
                 sh "echo devika@123 | docker login --username sibisam2301@gmail.com --password-stdin"
                 sh "docker push sibisam2301/maven:${params.TAG_NUMBER}"
             }
