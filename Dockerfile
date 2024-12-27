@@ -10,4 +10,5 @@ COPY target/microservice-1.0.0.jar /app/app.jar
 EXPOSE 7079
 
 # Run the JAR file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-cp", "app.jar", "com.example.Main"]
+
