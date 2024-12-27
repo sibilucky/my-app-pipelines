@@ -1,8 +1,11 @@
-version: '3'
+version: '3.7'
 services:
   app:
     image: sibisam2301/maven:${TAG_NUMBER}
     ports:
-      - "7079:7079"  # Adjust the port mapping as needed
+      - "7079:7079"  # Mapping port 8080 of the container to port 8080 on the host
     environment:
-      - JAVA_OPTS=-Xms256m -Xmx512m  # Adjust environment variables as needed
+      - ENV_VAR=production
+    volumes:
+      - ./app:/app
+
