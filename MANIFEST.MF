@@ -1,0 +1,2 @@
+ jar xf target/my-app-1.0.0.jar META-INF/MANIFEST.MF
+cat META-INF/MANIFEST.MF
