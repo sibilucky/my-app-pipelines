@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
         string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Version tag number')
-        string(name: 'HOST_PORT', defaultValue: '8080', description: 'Port on the host machine')
+        string(name: 'HOST_PORT', defaultValue: '7079', description: 'Port on the host machine')
     }
 
     environment {
