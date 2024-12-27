@@ -24,21 +24,17 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.4</version> <!-- Spring Boot plugin version -->
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal> <!-- This repackages your jar to make it executable -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>2.7.4</version>
+            <configuration>
+                <mainClass>com.yourcompany.microservice.MainClass</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
 
