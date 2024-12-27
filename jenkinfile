@@ -16,7 +16,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: main, url:https://github.com/sibilucky/my-app-pipelines.git, credentialsId: 'github-credentials' }
+                    // Checkout the repository using the provided GIT_URL and branch from parameters
+                    git branch: "main", url: "https://github.com/sibilucky/my-app-pipelines.git", credentialsId: 'github-credentials'
                 }
             }
         }
@@ -67,4 +68,3 @@ pipeline {
         }
     }
 }
-
