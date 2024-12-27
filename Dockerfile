@@ -11,7 +11,8 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the .jar file from the build stage
-COPY --from=build /app/target/*.jar /app/app.jar
+COPY --from=build /app/target/my-app-1.0.0.jar /app/app.jar
+
 
 EXPOSE 7079
 ENTRYPOINT ["java", "-jar", "app.jar"]
