@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  my-app:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Dockerfile should be in the same directory as this compose file
+    ports:
+      - "7079:7079"  # Map container port 7079 to host port 7079
+    environment:
+      - JAVA_OPTS=-Xmx512m  # Optional environment variable for Java memory settings
+    restart: unless-stopped  # Restart the container unless stopped manually
