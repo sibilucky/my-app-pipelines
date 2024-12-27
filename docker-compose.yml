@@ -1,12 +1,23 @@
-version: '3.8'
+ version: '3.8'
 
 services:
   my-app:
     build:
-      context: .
-      dockerfile: Dockerfile  # Dockerfile should be in the same directory as this compose file
+      context: .                # Build the Docker image from the current directory
+      dockerfile: Dockerfile     # Ensure the Dockerfile is located in the same directory
     ports:
-      - "7079:7079"  # Map container port 7079 to host port 7079
+      - "7079:7079"              # Map container's port 7079 to the host's port 7079
     environment:
-      - JAVA_OPTS=-Xmx512m  # Optional environment variable for Java memory settings
-    restart: unless-stopped  # Restart the container unless stopped manually
+      - JAVA_OPTS=-Xmx512m      # Java memory options (optional, modify as needed)
+    restart: unless-stopped     # Automatically restart the container unless manually stopped
+    networks:
+      - app-network             # Optional: Add the service to a specific network (if required)
+    logging:
+      driver: "json-file"        # Optional: Define log driver
+      options:
+        max-size: "10m"          # Optional: Set log file size limit
+        max-file: "3"            # Optional: Keep a maximum of 3 rotated log files
+
+networks:
+  app-network:                 # Define the network for communication between services (optional)
+    driver: bridge             # Bridge network is default, but you can specify others
