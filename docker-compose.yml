@@ -1,6 +1,8 @@
 version: '3'
 services:
-  my-app:
-    image: sibisam2301/maven:v1.0.0
+  app:
+    image: sibisam2301/maven:${TAG_NUMBER}
     ports:
-      - "7079:7079"
+      - "7079:7079"  # Adjust the port mapping as needed
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx512m  # Adjust environment variables as needed
