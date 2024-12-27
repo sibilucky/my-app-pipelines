@@ -1,12 +1,48 @@
- <build>
-    <plugins>
-        <plugin>
+ <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Required POM Model Version -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Group ID for your project -->
+    <groupId>com.yourcompany</groupId>
+
+    <!-- Artifact ID (name of the project) -->
+    <artifactId>microservice</artifactId>
+
+    <!-- Version of your project -->
+    <version>1.0.0</version>
+
+    <!-- Optional packaging (default is jar for Spring Boot) -->
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot Web Dependency -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <version>2.7.4</version>
-            <configuration>
-                <mainClass>com.yourcompany.microservice.MainClass</mainClass>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin for building executable JAR -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.4</version>
+                <configuration>
+                    <mainClass>com.yourcompany.microservice.MainClass</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
