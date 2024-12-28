@@ -17,9 +17,7 @@ pipeline {
                     def tagName = params.TAG_NUMBER 
                     def main = 'main' 
 
-                      $class: 'GitSCM',
-                        branches: [[name: "refs/heads/$main"]],
-                         userRemoteConfigs: [[url: 'https://github.com/sibilucky/my-app-pipelines.git']]
+                    git branch: 'main', url: 'https://github.com/sibilucky/my-app-pipelines.git'
 
                     
                     // Optionally, check out a specific tag
