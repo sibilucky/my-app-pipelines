@@ -16,8 +16,6 @@ pipeline {
                      def repoUrl = params.GIT_REPO_URL
                      def tagName = params.TAG_NUMBER
 
-                    echo "Checking out branch: main from repository: https://github.com/sibilucky/my-app-pipelines.git"
-
                     // Checkout the specified branch
                     git branch: main, url: 'https://github.com/sibilucky/my-app-pipelines.git'
 
