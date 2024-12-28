@@ -26,8 +26,8 @@ pipeline {
                     
                     // Optionally, check out a specific tag
                     if (tagName) {
-                        echo "Checking out tag: ${tagName}"
-                        sh "git checkout tags/${tagName} -b ${tagName}-branch"
+                        echo "Checking out tag: v1.0.0
+                        sh "git checkout tags/v1.0.0"
                     }
                 }
             }
