@@ -1,3 +1,4 @@
- ./Dockerfile
-./pom.xml
-./src
+target/
+*.log
+*.md
+ 
