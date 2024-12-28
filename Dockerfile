@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+ FROM openjdk:11-jre-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -9,6 +9,5 @@ COPY target/microservice-1.0.0.jar /app/app.jar
 # Expose the port the app will run on
 EXPOSE 7079
 
-# Run the JAR file
-ENTRYPOINT ["java", "-cp", "app.jar", "com.example.Main"]
-
+# Run the JAR file using the -jar option (which is typical for JAR execution)
+ENTRYPOINT ["java", "-jar", "app.jar"]
