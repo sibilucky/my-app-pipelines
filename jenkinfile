@@ -16,7 +16,7 @@
                     def repoUrl =  "https://github.com/sibilucky/my-app-pipelines.git" // Use the repository URL parameter
                     def tagName =  "v1.0.0"   // Use the tag number parameter
                     
-                    echo "Checking out branch: ${branchName} from repository: ${repoUrl}, with tag: ${tagName}"
+                    echo "Checking out branch: main from repository: "https://github.com/sibilucky/my-app-pipelines.git" , with tag: "v1.0.0"
                     
                     // Checkout the repository using the dynamically set repository URL, branch, and tag
                     git(
