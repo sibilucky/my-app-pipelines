@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
+        string(name: 'GIT_BRANCH', defaultValue: 'main','master', description: 'Git branch to build')
         string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Version tag number')
         string(name: 'HOST_PORT', defaultValue: '7079', description: 'Port on the host machine')
     }
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the repository using the provided GIT_URL and branch from parameters
-                    git branch: "main", url: "https://github.com/sibilucky/my-app-pipelines.git", credentialsId: 'github-credentials'
+                    git branch: "main" "master", url: "https://github.com/sibilucky/my-app-pipelines.git", credentialsId: 'github-credentials'
                 }
             }
         }
