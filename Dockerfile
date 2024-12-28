@@ -1,14 +1,29 @@
- FROM openjdk:11-jre-slim
+# Stage 1: Build Stage
+FROM maven:3.8.4-openjdk-11-slim AS build
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the compiled JAR file from the host machine
-COPY target/microservice-1.0.0.jar /app/app.jar
+# Copy the pom.xml and the source code into the container
+COPY pom.xml .
+COPY src ./src
+
+# Run Maven to build the project and produce the JAR file
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run Stage
+FROM openjdk:11-jre-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/target/*.jar /app/app.jar
 
 # Expose the port the app will run on
-EXPOSE 7079
+EXPOSE 8080
 
-# Run the JAR file using the -jar option (which is typical for JAR execution)
-ENTRYPOINT ["java", "-cp", "app.jar", "com.example.Main"]
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
 
