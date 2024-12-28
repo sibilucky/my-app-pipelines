@@ -1,9 +1,9 @@
- pipeline {
+pipeline {
     agent any
 
     parameters {
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
-        string(name: 'https://github.com/sibilucky/my-app-pipelines.git', defaultValue: 'https://github.com/sibilucky/my-app-pipelines.git', description: 'Git repository URL')
+        string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/sibilucky/my-app-pipelines.git', description: 'Git repository URL')
         string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Tag number to build and deploy')
     }
 
@@ -12,16 +12,16 @@
             steps {
                 script {
                     // Dynamically set the branch and tag using the parameters
-                    def branchName = main // Use the branch parameter
-                    def repoUrl =  "https://github.com/sibilucky/my-app-pipelines.git" // Use the repository URL parameter
-                    def tagName =  "v1.0.0"   // Use the tag number parameter
+                    def branchName = params.GIT_BRANCH  // Use the branch parameter
+                    def repoUrl = params.GIT_REPO_URL  // Use the repository URL parameter
+                    def tagName = params.TAG_NUMBER    // Use the tag number parameter
                     
-                    echo "Checking out branch: main from repository: "https://github.com/sibilucky/my-app-pipelines.git" , with tag: "v1.0.0"
+                    echo "Checking out branch: main from repository: https://github.com/sibilucky/my-app-pipelines.git , with tag: v1.0.0"
                     
                     // Checkout the repository using the dynamically set repository URL, branch, and tag
                     git(
-                        branch: main,       // Checkout the specific branch
-                        url:  "https://github.com/sibilucky/my-app-pipelines.git"           // Clone the repository from the URL
+                        branch: branchName,       // Checkout the specific branch
+                        url: "https://github.com/sibilucky/my-app-pipelines.git"            // Clone the repository from the URL
                     )
                     
                     // Optionally, check out a specific tag
@@ -77,3 +77,4 @@
         }
     }
 }
+
