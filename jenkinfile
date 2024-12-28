@@ -12,11 +12,11 @@ pipeline {
             steps {
                 script {
                     // Dynamically set the branch and tag using the parameters
-                    def branchName = params.main
-                    def repoUrl = params.https://github.com/sibilucky/my-app-pipelines.git
-                    def tagName = params.v1.0.0
+                     def branchName = params.GIT_BRANCH
+                     def repoUrl = params.GIT_REPO_URL
+                     def tagName = params.TAG_NUMBER
 
-                    echo "Checking out branch: ${branchName} from repository: ${repoUrl}"
+                    echo "Checking out branch: main from repository: https://github.com/sibilucky/my-app-pipelines.git"
 
                     // Checkout the specified branch
                     git branch: main, url: 'https://github.com/sibilucky/my-app-pipelines.git'
