@@ -3,27 +3,36 @@
 
     parameters {
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
-    }
-
-    environment {
-        GIT_URL = 'https://github.com/sibilucky/my-app-pipelines.git'
+        string(name: '', defaultValue: 'https://github.com/sibilucky/my-app-pipelines.git', description: 'Git repository URL')
+        string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Tag number to build and deploy')
     }
 
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    // Dynamically set the branch using the parameter GIT_BRANCH
-                    def branchName = params.GIT_BRANCH  // Use the parameter value from user input
-                    echo "Checking out branch: ${branchName}"
+                    // Dynamically set the branch and tag using the parameters
+                    def branchName = params.GIT_BRANCH  // Use the branch parameter
+                    def repoUrl = params.GIT_REPO_URL  // Use the repository URL parameter
+                    def tagName = params.TAG_NUMBER    // Use the tag number parameter
                     
-                    // Checkout the repository using the dynamically set branch name
-                    git branch: branchName, url: "https://github.com/sibilucky/my-app-pipelines.git"
+                    echo "Checking out branch: ${branchName} from repository: ${repoUrl}, with tag: ${tagName}"
+                    
+                    // Checkout the repository using the dynamically set repository URL, branch, and tag
+                    git(
+                        branch: branchName,       // Checkout the specific branch
+                        url: repoUrl             // Clone the repository from the URL
+                    )
+                    
+                    // Optionally, check out a specific tag
+                    if (tagName) {
+                        echo "Checking out tag: ${tagName}"
+                        sh "git checkout tags/${tagName} -b ${tagName}-branch"
+                    }
                 }
             }
         }
 
-        // Other stages like Build, Deploy, etc.
         stage('Build') {
             steps {
                 script {
@@ -38,7 +47,7 @@
                 script {
                     echo "Deploying to Docker..."
                     
-                    // Build Docker image
+                    // Build Docker image with the tag number
                     sh "docker build -t sibisam2301/maven:${params.TAG_NUMBER} ."
 
                     // Login to Docker Hub securely
@@ -46,7 +55,7 @@
                         sh "echo ${DOCKER_PASSWORD} | docker login --username ${DOCKER_USERNAME} --password-stdin"
                     }
 
-                    // Push the Docker image to Docker Hub
+                    // Push the Docker image to Docker Hub with the specified tag number
                     sh "docker push sibisam2301/maven:${params.TAG_NUMBER}"
 
                     // Run the Docker container with the specified host port
