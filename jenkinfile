@@ -19,14 +19,11 @@ pipeline {
                     // Checkout the specified branch
                     git branch: branchName, url: 'https://github.com/sibilucky/my-app-pipelines.git'
 
-                    // Optionally, check out a specific tag if provided
-                    if (tagName) {
-                        echo "Checking out tag: ${tagName}"
-                        sh "git checkout tags/${tagName}"
-                    }
+             }
                 }
             }
         }
+}
 
         stage('Build') {
             steps {
