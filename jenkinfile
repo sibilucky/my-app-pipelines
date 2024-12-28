@@ -18,7 +18,7 @@
                     echo "Checking out branch: ${branchName}"
                     
                     // Checkout the repository using the dynamically set branch name
-                    git branch: branchName, url: https://github.com/sibilucky/my-app-pipelines.git
+                    git branch: branchName, url: "https://github.com/sibilucky/my-app-pipelines.git"
                 }
             }
         }
