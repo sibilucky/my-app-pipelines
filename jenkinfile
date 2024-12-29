@@ -1,4 +1,4 @@
-pipeline {
+ pipeline {
     agent any
 
     parameters {
@@ -11,19 +11,16 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Dynamically set the branch and tag using the parameters
-                     def branchName = 'main'
-                     def repoUrl = 'https://github.com/sibilucky/my-app-pipelines.git'
-                     def tagName = 'v1.0.0'
-
-                    // Checkout the specified branch
-                    git branch: branchName, url: 'https://github.com/sibilucky/my-app-pipelines.git'
-
-             }
+                    // Dynamically set the branch and repo URL using the parameters
+                    def branchName = params.GIT_BRANCH
+                    def repoUrl = params.GIT_REPO_URL
+                    
+                    // Checkout the specified branch from the repo
+                    echo "Checking out main from https://github.com/sibilucky/my-app-pipelines.git"
+                    git branch: main, url: 'https://github.com/sibilucky/my-app-pipelines.git',
                 }
             }
         }
-}
 
         stage('Build') {
             steps {
@@ -42,9 +39,9 @@ pipeline {
                     // Build Docker image with the tag number
                     sh "docker build -t sibisam2301/maven:${params.TAG_NUMBER} ."
 
-                    // Login to Docker Hub securely
+                    // Login to Docker Hub securely using Jenkins credentials
                     withCredentials([usernamePassword(credentialsId: 'docker-credentials-id', usernameVariable: 'sibisam2301@gmail.com', passwordVariable: 'devika@123')]) {
-                        sh "echo  devika@123| docker login --username sibisam2301@gmail.com --password-stdin"
+                        sh "echo devika@123 | docker login --username sibisam2301@gmail.com --password-stdin"
                     }
 
                     // Push the Docker image to Docker Hub with the specified tag number
@@ -55,7 +52,7 @@ pipeline {
                 }
             }
         }
-    
+    }
 
     post {
         always {
@@ -68,5 +65,4 @@ pipeline {
             echo "Pipeline failed!"
         }
     }
-
-
+}
