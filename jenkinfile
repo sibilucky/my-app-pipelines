@@ -2,9 +2,9 @@
     agent any
 
     parameters {
-        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to build')
-        string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/sibilucky/my-app-pipelines.git', description: 'Git repository URL')
-        string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'Tag number to build and deploy')
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'main')
+        string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/sibilucky/my-app-pipelines.git', description: 'https://github.com/sibilucky/my-app-pipelines.git')
+        string(name: 'TAG_NUMBER', defaultValue: 'v1.0.0', description: 'v1.0.0')
     }
 
     stages {
