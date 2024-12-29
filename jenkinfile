@@ -19,7 +19,7 @@
                     echo "Checking out main from https://github.com/sibilucky/my-app-pipelines.git"
                     git branch: main, url: 'https://github.com/sibilucky/my-app-pipelines.git',
                 
-            }
+            
         }
 
         stage('Build') {
