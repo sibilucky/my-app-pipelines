@@ -20,7 +20,7 @@
                     git branch: main, url: 'https://github.com/sibilucky/my-app-pipelines.git',
                 
             
-        }
+        
 
         stage('Build') {
             steps {
